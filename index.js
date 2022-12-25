@@ -88,7 +88,7 @@ function configureBot(bot) {
   }
   
   async function placeCraftingTable(targetBlock) {
-    await bot.placeBlock('crafting_table', targetBlock, {}, Vec3(0, 1, 0), 3);
+    await bot.placeBlock('crafting_table', targetBlock, {reach: 3});
   }
 
   async function breakCraftingTable() {

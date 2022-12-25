@@ -98,7 +98,7 @@ function configureBot(bot) {
       msg += String(item);
     
     } else {
-      let msg = String(num);
+      msg = String(num);
       msg += item;
       msg += 'crafted';
     }

@@ -65,7 +65,7 @@ function configureBot(bot) {
     while (!bot.inventoryContainsItem('spruce_log', {quantity:12})) {
       await gatherEntity('spruce_log');
     }
-    craft('spruce_plank', 12);
+    craft('spruce_planks', 12);
     if (!bot.inventoryContainsItem('crafting_table')) {
       bot.craftItem('crafting_table');
     }

@@ -113,7 +113,6 @@ function configureBot(bot) {
       blockToMine = await detect('iron_ore');
       bot.approachAndDigBlock(blockToMine);
     }
-    }
   }
 
   async function detect(resource) {

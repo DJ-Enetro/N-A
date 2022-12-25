@@ -70,6 +70,9 @@ function configureBot(bot) {
       bot.craftItem('crafting_table');
     }
     craft('stick', 5);
+    if (!bot.inventoryContainsItem('stick')) {
+      bot.chat('why do I not have sticks?')
+    }
     utilityBlockPlacedOn = bot.findBlock('grass_block');
     bot.approachBlock(utilityBlockPlacedOn);    
     placeCraftingTable(utilityBlockPlacedOn);

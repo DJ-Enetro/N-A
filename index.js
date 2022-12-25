@@ -70,9 +70,6 @@ function configureBot(bot) {
       bot.craftItem('crafting_table');
     }
     craft('stick', 5);
-    if (!bot.inventoryContainsItem('stick')) {
-      bot.chat('why do I not have sticks?')
-    }
     utilityBlockPlacedOn = bot.findBlock('grass_block');
     bot.approachBlock(utilityBlockPlacedOn);    
     placeCraftingTable(utilityBlockPlacedOn);
@@ -95,10 +92,16 @@ function configureBot(bot) {
 
   async function craft(item, num = 1) {
     await bot.craftItem(item, { quantity: num })
-    // let msg = concat(num, item, 'crafted');
-    let msg = String(num);
-    msg += item;
-    msg += 'crafted';
+    let msg;
+    if (!bot.inventoryContainsItem(item)) {
+      msg = 'why do I not have';
+      msg += String(item);
+    
+    } else {
+      let msg = String(num);
+      msg += item;
+      msg += 'crafted';
+    }
     bot.chat(msg);
   }
 

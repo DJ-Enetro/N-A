@@ -104,7 +104,7 @@ function configureBot(bot) {
     }
   }
 
-  function detectCoalAndIron() {
+  async function detectCoalAndIron() {
     let ironSpot = await bot.findBlock('iron_ore');
     let coalSpot = await bot.findBlock('coal_ore');
     if (coalSpot === null) {

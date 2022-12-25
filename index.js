@@ -8,7 +8,7 @@
 function configureBot(bot) {
 
   bot.setDebug(true);
-    
+
   /*
   Strategy
   
@@ -33,9 +33,9 @@ function configureBot(bot) {
   
   */
 
-  
+
   async function gatherWood() {
-  
+
   }
 
   // Recreated from RG's Advanced Bot
@@ -43,13 +43,13 @@ function configureBot(bot) {
     let skipCurrentEntity = false;
     const countBefore = bot.getInventoryItemQuantity(entityName);
     while (bot.getInventoryItemQuantity(entityName) <= countBefore) {
-      const foundEntity = await bot.findBlock(entityName, {skipClosest: skipCurrentEntity});
+      const foundEntity = await bot.findBlock(entityName, { skipClosest: skipCurrentEntity });
       if (foundEntity) {
-        const success = await bot.findAndDigBlock(entityName, {skipClosest: skipCurrentEntity});
+        const success = await bot.findAndDigBlock(entityName, { skipClosest: skipCurrentEntity });
         if (!success) {
           skipCurrentEntity = true;
         } else {
-           skipCurrentEntity = false;
+          skipCurrentEntity = false;
         }
       } else {
         skipCurrentEntity = false;
@@ -62,7 +62,7 @@ function configureBot(bot) {
   }
 
   async function gatherMaterials() {
-    while (!bot.inventoryContainsItem('spruce_log', {quantity:16})) {
+    while (!bot.inventoryContainsItem('spruce_log', { quantity: 16 })) {
       await gatherEntity('spruce_log');
     }
     craft('spruce_planks', 16);
@@ -71,16 +71,18 @@ function configureBot(bot) {
     }
     craft('stick', 5);
     utilityBlockPlacedOn = bot.findBlock('grass_block');
+    bot.approachBlock(utilityBlockPlacedOn);    
     placeCraftingTable(utilityBlockPlacedOn);
     craft('wooden_shovel');
     craft('wooden_pickaxe');
     craft('wooden_axe');
     breakCraftingTable();
-    
-    while (!bot.inventoryContainsItem('cobblestone', {quantity:40})) {
+
+    while (!bot.inventoryContainsItem('cobblestone', { quantity: 40 })) {
       await gatherEntity('stone');
     }
     utilityBlockPlacedOn = bot.findBlock('stone');
+    bot.approachBlock(utilityBlockPlacedOn);
     placeCraftingTable(utilityBlockPlacedOn);
     craft('stone_pickaxe', 7);
     craft('furnace');
@@ -88,41 +90,44 @@ function configureBot(bot) {
   }
 
   async function craft(item, num = 1) {
-    await bot.craftItem(item, {quantity: num})
+    await bot.craftItem(item, { quantity: num })
     let msg = concat(num, item, 'crafted');
     bot.chat(msg);
   }
-  
+
   async function placeCraftingTable(targetBlock) {
-    await bot.placeBlock('crafting_table', targetBlock, {reach: 3});
+    await bot.placeBlock('crafting_table', targetBlock, { reach: 3 });
   }
 
   async function breakCraftingTable() {
-    await bot.findAndDigBlock('crafting_table')
+    await bot.findAndDigBlock('crafting_table');
   }
 
-  
-  
   async function goMining() {
-    while (true) {
-      let toMine = detectCoalAndIron();
-      bot.approachAndDigBlock(toMine);
+    while (!bot.inventoryContainsItem('coal', { quantity: 30 })) {
+      blockToMine = await detect('coal_ore');
+      bot.approachAndDigBlock(blockToMine);
+    }
+    
+    while (!bot.inventoryContainsItem('raw_iron', { quantity: 32 })) {
+      blockToMine = await detect('iron_ore');
+      bot.approachAndDigBlock(blockToMine);
+    }
     }
   }
 
-  async function detectCoalAndIron() {
-    let ironSpot = await bot.findBlock('iron_ore');
-    let coalSpot = await bot.findBlock('coal_ore');
-    if (coalSpot === null) {
-      await bot.findBlock('coal_ore', {distance: 60});
+  async function detect(resource) {
+    let meters = 30;
+    let spot = await bot.findBlock(resource, { distance: meters });
+    if (spot === null) {
+      while (spot === null) {
+        meters += 30;
+        spot = await bot.findBlock(resource, { distance: meters });
+      }
     } else {
-      return coalSpot;
+      return spot;
     }
-    if (ironSpot === null) {
-      await bot.findBlock('iron_ore', {distance: 60});
-    } else {
-      return ironSpot;
-    }
+    
   }
 
   /*
@@ -140,21 +145,21 @@ function configureBot(bot) {
         break;
   }
   */
-  
+
   bot.on('spawn', async () => {
     let craftingTableLocation = null;
     let utilityBlockPlacedOn;
     let furnaceLocation;
     let nextBlockToMine;
-    
+
     await gatherMaterials();
 
     while (true) {
       await goMining();
     }
   });
-  
-  
+
+
 
 }
 

@@ -66,9 +66,7 @@ function configureBot(bot) {
       await gatherEntity('spruce_log');
     }
     craft('spruce_planks', 16);
-    if (!bot.inventoryContainsItem('crafting_table')) {
-      bot.craftItem('crafting_table');
-    }
+    craft('crafting_table');
     craft('stick', 5);
     utilityBlockPlacedOn = bot.findBlock('grass_block');
     bot.approachBlock(utilityBlockPlacedOn);    
@@ -91,18 +89,19 @@ function configureBot(bot) {
   }
 
   async function craft(item, num = 1) {
-    await bot.craftItem(item, { quantity: num });
-    let msg;
-    if (!bot.inventoryContainsItem(item)) {
-      msg = 'why do I not have';
-      msg += String(item);
-    
-    } else {
-      msg = String(num);
-      msg += item;
-      msg += 'crafted';
+    if (bot.getInventoryItemQuantity <= num) {
+      await bot.craftItem(item, {quantity:num});
+      let msg;
+      if (!bot.inventoryContainsItem(item)) {
+        msg = 'why do I not have';
+        msg += String(item);
+      } else {
+        msg = String(num);
+        msg += item;
+        msg += 'crafted';
+      }
+      bot.chat(msg);
     }
-    bot.chat(msg);
   }
 
   async function placeCraftingTable(targetBlock) {

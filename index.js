@@ -53,6 +53,8 @@ function configureBot(bot) {
     craft('spruce_planks', 16);
     craft('crafting_table');
     craft('stick', 5);
+    
+    /*
     utilityBlockPlacedOn = bot.findBlock('grass_block');
     bot.approachBlock(utilityBlockPlacedOn);    
     placeCraftingTable(utilityBlockPlacedOn);
@@ -60,6 +62,7 @@ function configureBot(bot) {
     craft('wooden_pickaxe');
     craft('wooden_axe');
     breakCraftingTable();
+    */
 
     // while (!bot.inventoryContainsItem('cobblestone', { quantity: 40 })) {
     while (bot.getInventoryItemQuantity('cobblestone') <= 40) {
@@ -74,19 +77,17 @@ function configureBot(bot) {
   }
 
   async function craft(item, num = 1) {
-    if (bot.getInventoryItemQuantity <= num) {
-      await bot.craftItem(item, {quantity:num});
-      let msg;
-      if (!bot.inventoryContainsItem(item)) {
-        msg = 'why do I not have';
-        msg += String(item);
-      } else {
-        msg = String(num);
-        msg += item;
-        msg += 'crafted';
-      }
-      bot.chat(msg);
+    result = await bot.craftItem(item, {quantity:num});
+    let msg;
+    if (!result) {
+      msg = 'why do I not have';
+      msg += String(item);
+    } else {
+      msg = String(num);
+      msg += item;
+      msg += 'crafted';
     }
+    bot.chat(msg);
   }
 
   async function placeCraftingTable(targetBlock) {

@@ -78,7 +78,8 @@ function configureBot(bot) {
     craft('wooden_axe');
     breakCraftingTable();
 
-    while (!bot.inventoryContainsItem('cobblestone', { quantity: 40 })) {
+    // while (!bot.inventoryContainsItem('cobblestone', { quantity: 40 })) {
+    while (bot.getInventoryItemQuantity('cobblestone') <= 40) {
       await gatherEntity('stone');
     }
     utilityBlockPlacedOn = bot.findBlock('stone');

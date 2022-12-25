@@ -42,7 +42,7 @@ function configureBot(bot) {
   async function gatherEntity(entityName) {
     let skipCurrentEntity = false;
     const countBefore = bot.getInventoryItemQuantity(entityName);
-    while (bot.getInventoryItemQuantity(entityname) <= countBefore) {
+    while (bot.getInventoryItemQuantity(entityName) <= countBefore) {
       const foundEntity = await bot.findBlock(entityName, {skipClosest: skipCurrentEntity});
       if (foundEntity) {
         const success = await bot.findAndDigBlock(entityName, {skipClosest: skipCurrentEntity});

@@ -73,6 +73,7 @@ function configureBot(bot) {
     utilityBlockPlacedOn = bot.findBlock('grass_block');
     placeCraftingTable(utilityBlockPlacedOn);
     craft('wooden_shovel');
+    bot.chat('shovel crafted');
     craft('wooden_pickaxe');
     breakCraftingTable();
     
@@ -82,6 +83,7 @@ function configureBot(bot) {
     utilityBlockPlacedOn = bot.findBlock('stone');
     placeCraftingTable(utilityBlockPlacedOn);
     craft('stone_pickaxe', 7);
+    bot.chat('stone picks crafted');
     craft('furnace');
     breakCraftingTable();
   }

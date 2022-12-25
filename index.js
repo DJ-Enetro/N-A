@@ -69,10 +69,11 @@ function configureBot(bot) {
     if (!bot.inventoryContainsItem('crafting_table')) {
       bot.craftItem('crafting_table');
     }
-    craft('stick', 5);
+    craft('sticks', 5);
     utilityBlockPlacedOn = bot.findBlock('grass_block');
     placeCraftingTable(utilityBlockPlacedOn);
     craft('wooden_shovel');
+    craft('wooden_pickaxe');
     breakCraftingTable();
     
     while (!bot.inventoryContainsItem('cobblestone', {quantity:40})) {
@@ -80,7 +81,7 @@ function configureBot(bot) {
     }
     utilityBlockPlacedOn = bot.findBlock('stone');
     placeCraftingTable(utilityBlockPlacedOn);
-    craft('stone_pickaxe', 8);
+    craft('stone_pickaxe', 7);
     craft('furnace');
     breakCraftingTable();
   }

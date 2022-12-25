@@ -91,7 +91,10 @@ function configureBot(bot) {
 
   async function craft(item, num = 1) {
     await bot.craftItem(item, { quantity: num })
-    let msg = concat(num, item, 'crafted');
+    // let msg = concat(num, item, 'crafted');
+    let msg = String(num);
+    msg += item;
+    msg += 'crafted';
     bot.chat(msg);
   }
 

@@ -70,14 +70,16 @@ function configureBot(bot) {
       bot.craftItem('crafting_table');
     }
     craft('stick', 5);
-    placeCraftingTable('grass_block');
+    utilityBlockPlacedOn = bot.findBlock('grass_block');
+    placeCraftingTable(utilityBlockPlacedOn);
     craft('wooden_shovel');
     breakCraftingTable();
     
     while (!bot.inventoryContainsItem('cobblestone', {quantity:40})) {
       await gatherEntity('stone');
     }
-    placeCraftingTable('stone');
+    utilityBlockPlacedOn = bot.findBlock('stone');
+    placeCraftingTable(utilityBlockPlacedOn);
     craft('stone_pickaxe', 8);
     craft('furnace');
     breakCraftingTable();
@@ -137,6 +139,7 @@ function configureBot(bot) {
   
   bot.on('spawn', async () => {
     let craftingTableLocation = null;
+    let utilityBlockPlacedOn;
     let furnaceLocation;
     let nextBlockToMine;
     

@@ -89,7 +89,8 @@ function configureBot(bot) {
 
   async function craft(item, num = 1) {
     await bot.craftItem(item, {quantity: num})
-    bot.chat(num, item, 'crafted');
+    let msg = concat(num, item, 'crafted');
+    bot.chat(msg));
   }
   
   async function placeCraftingTable(targetBlock) {

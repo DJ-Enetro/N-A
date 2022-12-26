@@ -50,19 +50,19 @@ function configureBot(bot) {
     while (!bot.inventoryContainsItem('spruce_log', { quantity: 16 })) {
       await gatherEntity('spruce_log');
     }
-    craft('spruce_planks', 16);
-    craft('crafting_table');
-    craft('stick', 5);
+    craft('spruce_planks', num=16);
+    craft('crafting_table', num=1);
+    craft('stick', num=5);
     
-    /*
+    
     utilityBlockPlacedOn = bot.findBlock('grass_block');
     bot.approachBlock(utilityBlockPlacedOn);    
     placeCraftingTable(utilityBlockPlacedOn);
-    craft('wooden_shovel');
-    craft('wooden_pickaxe');
-    craft('wooden_axe');
+    craft('wooden_shovel', num=1);
+    craft('wooden_pickaxe', num=1);
+    craft('wooden_axe', num=1);
     breakCraftingTable();
-    */
+    
 
     // while (!bot.inventoryContainsItem('cobblestone', { quantity: 40 })) {
     while (bot.getInventoryItemQuantity('cobblestone') <= 40) {
@@ -71,13 +71,17 @@ function configureBot(bot) {
     utilityBlockPlacedOn = bot.findBlock('stone');
     bot.approachBlock(utilityBlockPlacedOn);
     placeCraftingTable(utilityBlockPlacedOn);
-    craft('stone_pickaxe', 7);
-    craft('furnace');
+    craft('stone_pickaxe', num=7);
+    craft('furnace', num=1);
     breakCraftingTable();
   }
 
-  async function craft(item, num = 1) {
-    result = await bot.craftItem(item, {quantity:num});
+  async function craft(item, num = 1, station=null) {
+    if (station != null) {
+      result = await bot.craftItem(item, {quantity:num, craftingTable:station});
+    } else {
+      result = await bot.craftItem(item, {quantity:num});
+    }
     let msg;
     if (!result) {
       msg = 'why do I not have';
@@ -92,10 +96,12 @@ function configureBot(bot) {
 
   async function placeCraftingTable(targetBlock) {
     await bot.placeBlock('crafting_table', targetBlock, { reach: 3 });
+    craftingTableLocation = bot.findBlock('crafting_table');
   }
 
   async function breakCraftingTable() {
     await bot.findAndDigBlock('crafting_table');
+    craftingTableLocation = null;
   }
 
   async function goMining() {

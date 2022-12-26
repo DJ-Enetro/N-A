@@ -55,8 +55,8 @@ function configureBot(bot) {
     await craft('stick', num=5);
     
     
-    utilityBlockPlacedOn = await bot.findBlock('grass_block');
-    // await bot.approachBlock(utilityBlockPlacedOn);    
+    utilityBlockPlacedOn = await bot.findBlock('grass_block', {onlyFindTopBlocks:true});
+    await bot.approachBlock(utilityBlockPlacedOn);    
     await placeCraftingTable(utilityBlockPlacedOn);
     await craft('wooden_shovel', num=1, station=craftingTableLocation);
     await craft('wooden_pickaxe', num=1, station=craftingTableLocation);
@@ -68,8 +68,8 @@ function configureBot(bot) {
     while (bot.getInventoryItemQuantity('cobblestone') <= 40) {
       await gatherEntity('stone');
     }
-    utilityBlockPlacedOn = await bot.findBlock('stone');
-    // await bot.approachBlock(utilityBlockPlacedOn);
+    utilityBlockPlacedOn = await bot.findBlock('stone', {onlyFindTopBlocks:true});
+    await bot.approachBlock(utilityBlockPlacedOn);
     await placeCraftingTable(utilityBlockPlacedOn);
     await craft('stone_pickaxe', num=7, station=craftingTableLocation);
     await craft('furnace', num=1, station=craftingTableLocation);

@@ -50,17 +50,17 @@ function configureBot(bot) {
     while (!bot.inventoryContainsItem('spruce_log', { quantity: 16 })) {
       await gatherEntity('spruce_log');
     }
-    craft('spruce_planks', num=16);
-    craft('crafting_table', num=1);
-    craft('stick', num=5);
+    await craft('spruce_planks', num=16);
+    await craft('crafting_table', num=1);
+    await craft('stick', num=5);
     
     
     utilityBlockPlacedOn = bot.findBlock('grass_block');
     bot.approachBlock(utilityBlockPlacedOn);    
     placeCraftingTable(utilityBlockPlacedOn);
-    craft('wooden_shovel', num=1);
-    craft('wooden_pickaxe', num=1);
-    craft('wooden_axe', num=1);
+    await craft('wooden_shovel', num=1);
+    await craft('wooden_pickaxe', num=1);
+    await craft('wooden_axe', num=1);
     breakCraftingTable();
     
 
@@ -71,12 +71,12 @@ function configureBot(bot) {
     utilityBlockPlacedOn = bot.findBlock('stone');
     bot.approachBlock(utilityBlockPlacedOn);
     placeCraftingTable(utilityBlockPlacedOn);
-    craft('stone_pickaxe', num=7);
-    craft('furnace', num=1);
+    await craft('stone_pickaxe', num=7);
+    await craft('furnace', num=1);
     breakCraftingTable();
   }
 
-  function craft(item, num = 1, station=null) {
+  async function craft(item, num = 1, station=null) {
     if (station != null) {
       result = await bot.craftItem(item, {quantity:num, craftingTable:station});
     } else {

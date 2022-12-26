@@ -76,7 +76,7 @@ function configureBot(bot) {
     breakCraftingTable();
   }
 
-  async function craft(item, num = 1, station=null) {
+  function craft(item, num = 1, station=null) {
     if (station != null) {
       result = await bot.craftItem(item, {quantity:num, craftingTable:station});
     } else {

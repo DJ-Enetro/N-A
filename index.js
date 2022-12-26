@@ -58,9 +58,9 @@ function configureBot(bot) {
     utilityBlockPlacedOn = await bot.findBlock('grass_block');
     // await bot.approachBlock(utilityBlockPlacedOn);    
     await placeCraftingTable(utilityBlockPlacedOn);
-    await craft('wooden_shovel', num=1);
-    await craft('wooden_pickaxe', num=1);
-    await craft('wooden_axe', num=1);
+    await craft('wooden_shovel', num=1, station=craftingTableLocation);
+    await craft('wooden_pickaxe', num=1, station=craftingTableLocation);
+    await craft('wooden_axe', num=1, station=craftingTableLocation);
     await breakCraftingTable();
     
 
@@ -71,8 +71,8 @@ function configureBot(bot) {
     utilityBlockPlacedOn = await bot.findBlock('stone');
     // await bot.approachBlock(utilityBlockPlacedOn);
     await placeCraftingTable(utilityBlockPlacedOn);
-    await craft('stone_pickaxe', num=7);
-    await craft('furnace', num=1);
+    await craft('stone_pickaxe', num=7, station=craftingTableLocation);
+    await craft('furnace', num=1, station=craftingTableLocation);
     await breakCraftingTable();
   }
 

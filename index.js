@@ -55,7 +55,7 @@ function configureBot(bot) {
     await craft('stick', num=5);
     
     // AdvancedBot configuration
-    const ground = bot.findBlock('grass', {onlyFindTopBlocks: true, maxDistance: 20}) || bot.findBlock('dirt', { onlyFindTopBlocks: true, maxDistance: 20});
+    const ground = bot.findBlock('grass_block', {onlyFindTopBlocks: true, maxDistance: 20}) || bot.findBlock('dirt', { onlyFindTopBlocks: true, maxDistance: 20});
     await bot.placeBlock('crafting_table', ground);
     const placedTable = await bot.findBlock('crafting_table');
     await bot.approachBlock(placedTable);

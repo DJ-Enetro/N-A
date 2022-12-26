@@ -55,7 +55,7 @@ function configureBot(bot) {
     await craft('stick', num=5);
     
     
-    utilityBlockPlacedOn = bot.findBlock('grass_block');
+    utilityBlockPlacedOn = await bot.findBlock('grass_block');
     // await bot.approachBlock(utilityBlockPlacedOn);    
     await placeCraftingTable(utilityBlockPlacedOn);
     await craft('wooden_shovel', num=1);
@@ -68,7 +68,7 @@ function configureBot(bot) {
     while (bot.getInventoryItemQuantity('cobblestone') <= 40) {
       await gatherEntity('stone');
     }
-    utilityBlockPlacedOn = bot.findBlock('stone');
+    utilityBlockPlacedOn = await bot.findBlock('stone');
     // await bot.approachBlock(utilityBlockPlacedOn);
     await placeCraftingTable(utilityBlockPlacedOn);
     await craft('stone_pickaxe', num=7);

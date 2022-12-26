@@ -55,7 +55,7 @@ function configureBot(bot) {
     await craft('stick', num=5);
     
     
-    utilityBlockPlacedOn = await bot.findBlock('grass_block', {onlyFindTopBlocks:true});
+    let utilityBlockPlacedOn = await bot.findBlock('grass_block', {onlyFindTopBlocks:true});
     await bot.approachBlock(utilityBlockPlacedOn);    
     await placeCraftingTable(utilityBlockPlacedOn);
     await craft('wooden_shovel', num=1, station=craftingTableLocation);
@@ -95,7 +95,7 @@ function configureBot(bot) {
   }
 
   async function placeCraftingTable(targetBlock) {
-    await bot.placeBlock('crafting_table', targetBlock, { reach: 3 });
+    await bot.placeBlock('crafting_table', targetBlock);
     craftingTableLocation = bot.findBlock('crafting_table');
   }
 

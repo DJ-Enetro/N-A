@@ -54,10 +54,15 @@ function configureBot(bot) {
     await craft('crafting_table', num=1);
     await craft('stick', num=5);
 
+    utilityBlockPlacedOn = bot.findBlocks([blockNames: ['grass_block']]).shift();
+    
+    /*
     blockList = bot.findBlocks('grass');
     bot.chat(blockList[0].toString());
     surfaceBlocks = blockList.filter((b) => bot.mineflayer().blockAt(b.position.offset(0, 1, 0)).type === 0);
     utilityBlockPlacedOn = surfaceBlocks[0];
+    */
+    
     // utilityBlockPlacedOn = await bot.findBlock('grass_block', {onlyFindTopBlocks:true, maxDistance:20});
     await placeCraftingTable(utilityBlockPlacedOn);
     await bot.approachBlock(craftingTableLocation);

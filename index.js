@@ -54,29 +54,33 @@ function configureBot(bot) {
     await craft('crafting_table', num=1);
     await craft('stick', num=5);
 
-
-    bot.allowDigWhilePathing(false);
-    utilityBlockPlacedOn = await bot.findBlock('grass_block', {onlyFindTopBlocks:true, maxDistance:20});
+    blockList = bot.findBlocks('grass_block');
+    surfaceBlocks = blockList.filter((b) => bot.mineflayer().blockAt(b.position.offset(0, 1, 0)).type === 0);
+    utilityBlockPlacedOn = surfaceBlocks[0];
+    // utilityBlockPlacedOn = await bot.findBlock('grass_block', {onlyFindTopBlocks:true, maxDistance:20});
     await placeCraftingTable(utilityBlockPlacedOn);
     await bot.approachBlock(craftingTableLocation);
     await craft('wooden_shovel', num=1, station=craftingTableLocation);
     await craft('wooden_pickaxe', num=1, station=craftingTableLocation);
     await craft('wooden_axe', num=1, station=craftingTableLocation);
     await breakCraftingTable();
-    bot.allowDigWhilePathing(true);
+    
 
     // while (!bot.inventoryContainsItem('cobblestone', { quantity: 40 })) {
     while (bot.getInventoryItemQuantity('cobblestone') <= 40) {
       await gatherEntity('stone');
     }
-    bot.allowDigWhilePathing(false);
-    utilityBlockPlacedOn = await bot.findBlock('grass_block', {onlyFindTopBlocks:true, maxDistance:20});
+
+    blockList = bot.findBlocks('stone');
+    surfaceBlocks = blockList.filter((b) => bot.mineflayer().blockAt(b.position.offset(0, 1, 0)).type === 0);
+    utilityBlockPlacedOn = surfaceBlocks[0];
+    // utilityBlockPlacedOn = await bot.findBlock('stone', {onlyFindTopBlocks:true, maxDistance:20});
     await placeCraftingTable(utilityBlockPlacedOn);
     await bot.approachBlock(craftingTableLocation);
     await craft('stone_pickaxe', num=7, station=craftingTableLocation);
     await craft('furnace', num=1, station=craftingTableLocation);
     await breakCraftingTable();
-    bot.allowDigWhilePathing(true);
+    
   }
 
   async function craft(item, num = 1, station=null) {
@@ -154,6 +158,9 @@ function configureBot(bot) {
     let utilityBlockPlacedOn;
     let furnaceLocation;
     let nextBlockToMine;
+
+    let blockList;
+    let surfaceBlocks;
 
     await gatherMaterials();
 

@@ -47,15 +47,15 @@ function configureBot(bot) {
   }
 
   async function gatherMaterials() {
-    while (!bot.inventoryContainsItem('spruce_log', { quantity: 16 })) {
+    while (!bot.inventoryContainsItem('spruce_log', { quantity: 4 })) {
       await gatherEntity('spruce_log');
     }
-    await craft('spruce_planks', num=16);
+    await craft('spruce_planks', num=4);
     await craft('crafting_table', num=1);
     await craft('stick', num=5);
 
     blockList = bot.findBlocks('grass_block');
-    bot.chat(blockList.toString());
+    bot.chat(blockList[0].toString());
     surfaceBlocks = blockList.filter((b) => bot.mineflayer().blockAt(b.position.offset(0, 1, 0)).type === 0);
     utilityBlockPlacedOn = surfaceBlocks[0];
     // utilityBlockPlacedOn = await bot.findBlock('grass_block', {onlyFindTopBlocks:true, maxDistance:20});

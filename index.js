@@ -53,33 +53,30 @@ function configureBot(bot) {
     await craft('spruce_planks', num=16);
     await craft('crafting_table', num=1);
     await craft('stick', num=5);
-    
-    // AdvancedBot configuration
-    const ground = bot.findBlock('grass_block', {onlyFindTopBlocks: true, maxDistance: 20}) || bot.findBlock('dirt', { onlyFindTopBlocks: true, maxDistance: 20});
-    await bot.placeBlock('crafting_table', ground);
-    const placedTable = await bot.findBlock('crafting_table');
-    await bot.approachBlock(placedTable);
-    
-    
-    /* utilityBlockPlacedOn = await bot.findBlock('grass_block', {onlyFindTopBlocks:true, maxDistance:20});
+
+
+    bot.allowDigWhilePathing(false);
+    utilityBlockPlacedOn = await bot.findBlock('grass_block', {onlyFindTopBlocks:true, maxDistance:20});
     await placeCraftingTable(utilityBlockPlacedOn);
     await bot.approachBlock(craftingTableLocation);
     await craft('wooden_shovel', num=1, station=craftingTableLocation);
     await craft('wooden_pickaxe', num=1, station=craftingTableLocation);
     await craft('wooden_axe', num=1, station=craftingTableLocation);
     await breakCraftingTable();
-    */
+    bot.allowDigWhilePathing(true);
 
     // while (!bot.inventoryContainsItem('cobblestone', { quantity: 40 })) {
     while (bot.getInventoryItemQuantity('cobblestone') <= 40) {
       await gatherEntity('stone');
     }
+    bot.allowDigWhilePathing(false);
     utilityBlockPlacedOn = await bot.findBlock('grass_block', {onlyFindTopBlocks:true, maxDistance:20});
     await placeCraftingTable(utilityBlockPlacedOn);
     await bot.approachBlock(craftingTableLocation);
     await craft('stone_pickaxe', num=7, station=craftingTableLocation);
     await craft('furnace', num=1, station=craftingTableLocation);
     await breakCraftingTable();
+    bot.allowDigWhilePathing(true);
   }
 
   async function craft(item, num = 1, station=null) {

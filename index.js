@@ -151,8 +151,10 @@ function configureBot(bot) {
     await craft('crafting_table');
 
     let blocks = bot.findBlocks({blockNames: ['grass_block']});
+    bot.message(blocks[0]);
     let surfaceBlocks = blocks.filter((b) => bot.mineflayer().blockAt(b.position.offset(0, 1, 0)).type === 0);
     let pick = surfaceBlocks[0];
+    
 
     bot.placeBlock('crafting_table', pick);
   }

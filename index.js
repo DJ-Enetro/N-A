@@ -47,10 +47,10 @@ function configureBot(bot) {
   }
 
   async function gatherMaterials() {
-    while (!bot.inventoryContainsItem('spruce_log', { quantity: 4 })) {
+    while (!bot.inventoryContainsItem('spruce_log', { quantity: 16 })) {
       await gatherEntity('spruce_log');
     }
-    await craft('spruce_planks', num=4);
+    await craft('spruce_planks', num=16);
     await craft('crafting_table', num=1);
     await craft('stick', num=5);
 
@@ -143,6 +143,19 @@ function configureBot(bot) {
     }
     
   }
+  async function debugRun() {
+    while (!bot.inventoryContainsItem('spruce_log', { quantity: 1 })) {
+      await gatherEntity('spruce_log');
+    }
+    await craft('spruce_planks');
+    await craft('crafting_table');
+
+    let blocks = bot.findBlocks({blockNames: ['grass_block']}).shift();
+    let surfaceBlocks = blocks.filter((b) => bot.mineflayer().blockAt(b.position.offset(0, 1, 0).type === 0));
+    let pick = surfaceBlocks[0];
+
+    bot.placeBlock('crafting_table', pick);
+  }
 
   /*
   async function establishBase() {
@@ -169,7 +182,8 @@ function configureBot(bot) {
     let blockList;
     let surfaceBlocks;
 
-    await gatherMaterials();
+    await debugRun();
+    // await gatherMaterials();
 
     while (true) {
       await goMining();

@@ -55,7 +55,10 @@ function configureBot(bot) {
     await craft('stick', num=5);
 
     utilityBlockPlacedOn = bot.findBlocks({blockNames: ['grass_block']}).shift();
-    bot.chat(utilityBlockPlacedOn.x);
+    
+    bot.chat(utilityBlockPlacedOn.result);
+
+
     
     /*
     blockList = bot.findBlocks('grass');

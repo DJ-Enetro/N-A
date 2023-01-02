@@ -154,8 +154,9 @@ function configureBot(bot) {
     await craft('crafting_table');
 
     const blocks1 = bot.findBlocks({blockNames: ['grass']});
-    bot.chat(blocks1.toString());
-    let surfaceBlocks = blocks.filter((b) => bot.mineflayer().blockAt(b.position.offset(0, 1, 0)).type === 0);
+    bot.chat(blocks1.result.toString());
+    bot.chat(blocks1.value.toString());
+    let surfaceBlocks = blocks1.filter((b) => bot.mineflayer().blockAt(b.position.offset(0, 1, 0)).type === 0);
     let pick = surfaceBlocks[0];
     
 

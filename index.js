@@ -156,12 +156,13 @@ function configureBot(bot) {
     const blocks1 = bot.findBlocks({blockNames: ['grass']});
     bot.chat(JSON.stringify(blocks1[0].result));
     bot.chat(JSON.stringify(blocks1[0].value));
+
     
-    let surfaceBlocks = blocks1.filter((block) => bot.mineflayer().blockAt(block.position.plus(0, 1, 0)).type === 0);
-    let pick = surfaceBlocks[0];
+    // let surfaceBlocks = blocks1.filter((block) => bot.mineflayer().blockAt(block.position.plus(0, 1, 0)).type === 0);
+    // let pick = surfaceBlocks[0];
     
 
-    bot.placeBlock('crafting_table', pick);
+    bot.placeBlock('crafting_table', blocks1[0]);
   }
 
   /*

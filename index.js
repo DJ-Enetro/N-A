@@ -155,7 +155,7 @@ function configureBot(bot) {
 
     const blocks1 = bot.findBlocks({blockNames: ['grass']});
     chosen = blocks1[0];
-    bot.chat(chosen.result.toString());
+    bot.chat(chosen.result[0].toString());
     bot.chat(chosen.value.toString());
     bot.placeBlock('crafting_table', chosen);
   

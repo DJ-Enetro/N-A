@@ -70,17 +70,26 @@ function configureBot(bot) {
       await gatherEntity('spruce_log');
     }
     
-    while (bot.getInventoryItemQuantity('cobblestone') <= 40) {
+    while (bot.getInventoryItemQuantity('cobblestone') <= 20) {
       await gatherEntity('stone');
     }
-    
+
     await bot.approachBlock(craftingTableLocation);
+    await craft('stone_pickaxe', num=1, station=craftingTableLocation);
     await craft('stone_shovel', num=1, station=craftingTableLocation);
+    
+    while (bot.getInventoryItemQuantity('cobblestone') <= 20) {
+      await gatherEntity('stone');
+    }
+    await bot.approachBlock(craftingTableLocation);
     await craft('stone_axe', num=1, station=craftingTableLocation);
-    await craft('stone_pickaxe', num=7, station=craftingTableLocation);
+    await craft('stone_pickaxe', num=6, station=craftingTableLocation);
     await craft('furnace', num=1, station=craftingTableLocation);
     await breakCraftingTable();
     
+    while (bot.getInventoryItemQuantity('dirt') <= 32) {
+      await gatherEntity('dirt');
+    }
 
     // while (!bot.inventoryContainsItem('cobblestone', { quantity: 40 })) {
 

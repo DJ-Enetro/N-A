@@ -81,7 +81,7 @@ function configureBot(bot) {
     }
 
     search_results = bot.findBlocks({blockNames: ['stone']});
-    let on_block = search_results[0].result;
+    on_block = search_results[0].result;
     // utilityBlockPlacedOn = await bot.findBlock('stone', {onlyFindTopBlocks:true, maxDistance:20});
     await placeCraftingTable(on_block);
     await bot.approachBlock(craftingTableLocation);

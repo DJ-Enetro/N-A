@@ -158,7 +158,8 @@ function configureBot(bot) {
     let pos = chosen.result.position;
     bot.chat(bot.vecToString(pos));
     bot.chat(chosen.value.toString());
-    bot.placeBlock('crafting_table', chosen);
+    
+    bot.placeBlock('crafting_table', pos);
   
     // let surfaceBlocks = blocks1.filter((block) => bot.mineflayer().blockAt(block.position.plus(0, 1, 0)).type === 0);
     // let pick = surfaceBlocks[0];

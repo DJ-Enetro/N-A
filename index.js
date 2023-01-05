@@ -155,11 +155,12 @@ function configureBot(bot) {
 
     const blocks1 = bot.findBlocks({blockNames: ['grass']});
     chosen = blocks1[0];
-    let pos = chosen.result.position;
+    let block = chosen.result;
+    let pos = block.position;
     bot.chat(bot.vecToString(pos));
     bot.chat(chosen.value.toString());
     
-    bot.placeBlock('crafting_table', pos);
+    bot.placeBlock('crafting_table', block);
   
     // let surfaceBlocks = blocks1.filter((block) => bot.mineflayer().blockAt(block.position.plus(0, 1, 0)).type === 0);
     // let pick = surfaceBlocks[0];

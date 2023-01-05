@@ -54,9 +54,8 @@ function configureBot(bot) {
     await craft('crafting_table', num=1);
     await craft('stick', num=5);
 
-    utilityBlockPlacedOn = bot.findBlocks({blockNames: ['grass_block']}).shift();
-    
-    bot.chat(utilityBlockPlacedOn.result);
+    search_results = bot.findBlocks({blockNames: ['grass_block']});
+    let on_block = search_results[0].result;
 
 
     
@@ -68,7 +67,7 @@ function configureBot(bot) {
     */
     
     // utilityBlockPlacedOn = await bot.findBlock('grass_block', {onlyFindTopBlocks:true, maxDistance:20});
-    await placeCraftingTable(utilityBlockPlacedOn);
+    await placeCraftingTable(on_block);
     await bot.approachBlock(craftingTableLocation);
     await craft('wooden_shovel', num=1, station=craftingTableLocation);
     await craft('wooden_pickaxe', num=1, station=craftingTableLocation);
@@ -81,16 +80,14 @@ function configureBot(bot) {
       await gatherEntity('stone');
     }
 
-    blockList = bot.findBlocks('stone');
-    surfaceBlocks = blockList.filter((b) => bot.mineflayer().blockAt(b.position.offset(0, 1, 0)).type === 0);
-    utilityBlockPlacedOn = surfaceBlocks[0];
+    search_results = bot.findBlocks({blockNames: ['stone']});
+    let on_block = search_results[0].result;
     // utilityBlockPlacedOn = await bot.findBlock('stone', {onlyFindTopBlocks:true, maxDistance:20});
-    await placeCraftingTable(utilityBlockPlacedOn);
+    await placeCraftingTable(on_block);
     await bot.approachBlock(craftingTableLocation);
     await craft('stone_pickaxe', num=7, station=craftingTableLocation);
     await craft('furnace', num=1, station=craftingTableLocation);
     await breakCraftingTable();
-    
   }
 
   async function craft(item, num = 1, station=null) {
@@ -190,18 +187,19 @@ function configureBot(bot) {
     let utilityBlockPlacedOn;
     let furnaceLocation;
     let nextBlockToMine;
-
+    let search_results;
+    
     let blockList;
     let surfaceBlocks;
 
-    await debugRun();
-    /*await gatherMaterials();
+    //await debugRun();
+    await gatherMaterials();
 
     while (true) {
       await goMining();
     }
 
-    */ 
+    
   });
 
 

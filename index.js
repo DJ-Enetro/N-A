@@ -66,30 +66,29 @@ function configureBot(bot) {
     // utilityBlockPlacedOn = await bot.findBlock('grass_block', {onlyFindTopBlocks:true, maxDistance:20});
     await placeCraftingTable(on_block);
 
-    while (bot.getInventoryItemQuantity('cobblestone') <= 10) {
+    while (bot.getInventoryItemQuantity('spruce_log') <= 8) {
+      await gatherEntity('spruce_log');
+    }
+    
+    while (bot.getInventoryItemQuantity('cobblestone') <= 40) {
       await gatherEntity('stone');
     }
     
     await bot.approachBlock(craftingTableLocation);
-    await craft('wooden_shovel', num=1, station=craftingTableLocation);
-    await craft('wooden_pickaxe', num=1, station=craftingTableLocation);
-    await craft('wooden_axe', num=1, station=craftingTableLocation);
+    await craft('stone_shovel', num=1, station=craftingTableLocation);
+    await craft('stone_axe', num=1, station=craftingTableLocation);
+    await craft('stone_pickaxe', num=7, station=craftingTableLocation);
+    await craft('furnace', num=1, station=craftingTableLocation);
     await breakCraftingTable();
     
 
     // while (!bot.inventoryContainsItem('cobblestone', { quantity: 40 })) {
-    while (bot.getInventoryItemQuantity('cobblestone') <= 40) {
-      await gatherEntity('stone');
-    }
 
     search_results = bot.findBlocks({blockNames: ['stone']});
     on_block = search_results[0].result;
     // utilityBlockPlacedOn = await bot.findBlock('stone', {onlyFindTopBlocks:true, maxDistance:20});
     await placeCraftingTable(on_block);
     await bot.approachBlock(craftingTableLocation);
-    await craft('stone_pickaxe', num=7, station=craftingTableLocation);
-    await craft('furnace', num=1, station=craftingTableLocation);
-    await breakCraftingTable();
   }
 
   async function craft(item, num = 1, station=null) {

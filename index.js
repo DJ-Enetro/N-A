@@ -50,7 +50,7 @@ function configureBot(bot) {
     while (!bot.inventoryContainsItem('spruce_log', { quantity: 16 })) {
       await gatherEntity('spruce_log');
     }
-    await craft('spruce_planks', num=16);
+    await craft('spruce_planks', num=8);
     await craft('crafting_table', num=1);
     await craft('stick', num=5);
 
@@ -105,8 +105,8 @@ function configureBot(bot) {
     bot.chat(msg);
   }
 
-  async function placeCraftingTable(targetBlock) {
-    await bot.placeBlock('crafting_table', targetBlock);
+  async function placeCraftingTable(on_block) {
+    await bot.placeBlock('crafting_table', on_block);
     craftingTableLocation = bot.findBlock('crafting_table');
   }
 

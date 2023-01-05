@@ -78,7 +78,7 @@ function configureBot(bot) {
     await craft('stone_pickaxe', num=1, station=craftingTableLocation);
     await craft('stone_shovel', num=1, station=craftingTableLocation);
     
-    while (bot.getInventoryItemQuantity('cobblestone') <= 20) {
+    while (bot.getInventoryItemQuantity('cobblestone') <= 40) {
       await gatherEntity('stone');
     }
     await bot.approachBlock(craftingTableLocation);

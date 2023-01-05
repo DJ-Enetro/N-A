@@ -54,11 +54,8 @@ function configureBot(bot) {
     await craft('crafting_table', num=1);
     await craft('stick', num=5);
 
-    search_results = bot.findBlocks({blockNames: ['grass_block']});
+    search_results = bot.findBlocks({blockNames: ['grass']});
     let on_block = search_results[0].result;
-
-
-    
     /*
     blockList = bot.findBlocks('grass');
     bot.chat(blockList[0].toString());

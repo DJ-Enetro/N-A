@@ -56,6 +56,8 @@ function configureBot(bot) {
 
     search_results = bot.findBlocks({blockNames: ['grass']});
     let on_block = search_results[0].result;
+    await placeCraftingTable(on_block);
+    
     /*
     blockList = bot.findBlocks('grass');
     bot.chat(blockList[0].toString());
@@ -64,9 +66,8 @@ function configureBot(bot) {
     */
     
     // utilityBlockPlacedOn = await bot.findBlock('grass_block', {onlyFindTopBlocks:true, maxDistance:20});
-    await placeCraftingTable(on_block);
 
-    while (bot.getInventoryItemQuantity('spruce_log') <= 8) {
+    while (bot.getInventoryItemQuantity('spruce_log') <= 12) {
       await gatherEntity('spruce_log');
     }
     
@@ -81,6 +82,7 @@ function configureBot(bot) {
     while (bot.getInventoryItemQuantity('cobblestone') <= 40) {
       await gatherEntity('stone');
     }
+    
     await bot.approachBlock(craftingTableLocation);
     await craft('stone_axe', num=1, station=craftingTableLocation);
     await craft('stone_pickaxe', num=6, station=craftingTableLocation);

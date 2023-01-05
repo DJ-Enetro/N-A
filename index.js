@@ -65,6 +65,11 @@ function configureBot(bot) {
     
     // utilityBlockPlacedOn = await bot.findBlock('grass_block', {onlyFindTopBlocks:true, maxDistance:20});
     await placeCraftingTable(on_block);
+
+    while (bot.getInventoryItemQuantity('cobblestone') <= 10) {
+      await gatherEntity('stone');
+    }
+    
     await bot.approachBlock(craftingTableLocation);
     await craft('wooden_shovel', num=1, station=craftingTableLocation);
     await craft('wooden_pickaxe', num=1, station=craftingTableLocation);
